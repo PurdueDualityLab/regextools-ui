@@ -1,0 +1,64 @@
+
+<div class="sidenav__container">
+    <div>
+        <h1 class="sidenav__title">Query</h1>
+    </div>
+    <form class="sidenav__inputs" [formGroup]="exampleForm">
+        <mat-form-field appearance="outline" class="input-box">
+            <mat-label>Example</mat-label>
+            <input matInput formControlName="exampleText">
+        </mat-form-field>
+        <div class="category-info">
+            <mat-form-field appearance="outline">
+                <mat-label>Example category</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of categories" [value]="category">{{ category | titlecase }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="btn-box">
+                <button mat-stroked-button color="accent" (click)="addExample()" [disabled]="exampleForm.invalid">
+                    ADD
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div class="sidenav__examples">
+        <h2 class="sidenav__examples__header">Positive Examples</h2>
+        <mat-list>
+            <mat-list-item *ngFor="let positiveExample of (positiveExamples$ | async)">
+                <app-query-list-item
+                    [text]="positiveExample"
+                    (edited)="updateExample('positive', $event)"
+                    (removed)="removeExample('positive', $event)"
+                    style="width: 100%; height: 100%;">
+                </app-query-list-item>
+            </mat-list-item>
+        </mat-list>
+        <h2 class="sidenav__examples__header">Negative Examples</h2>
+        <mat-list>
+            <mat-list-item *ngFor="let negativeExample of (negativeExamples$ | async)">
+                <app-query-list-item
+                    [text]="negativeExample"
+                    (edited)="updateExample('positive', $event)"
+                    (removed)="removeExample('positive', $event)"
+                    style="width: 100%; height: 100%;"
+                ></app-query-list-item>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <div class="sidenav__action-box">
+        <button mat-stroked-button color="warn" type="button" *ngIf="hasExamples$ | async" (click)="onResetForm()">
+            CLEAR EXAMPLES
+            <mat-icon>clear_all</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="onQuery()" type="button">
+            QUERY
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
+</div>

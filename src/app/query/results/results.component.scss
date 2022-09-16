@@ -1,0 +1,17 @@
+
+.results__container {
+    background-color: #f0f0f0;
+    overflow-y: auto;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.results_list-container {
+    padding: 16px 32px;
+}
+
+.results__no-results-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 64px;
+}

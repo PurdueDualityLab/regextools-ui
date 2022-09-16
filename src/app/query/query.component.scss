@@ -1,0 +1,12 @@
+.query-page__container {
+    display: flex;
+    height: 100%;
+}
+
+.query-page__sidenav {
+    flex: 1;
+}
+
+.query-page__main-content {
+    flex: 3;
+}

@@ -1,0 +1,18 @@
+
+<div class="results__container">
+    <mat-toolbar color="primary">Search Results</mat-toolbar>
+    <div *ngIf="(hasResults$ | async); else noResults" class="results_list-container">
+        <!-- First, do the items that are added -->
+        <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
+        <!-- Next, do removed items -->
+        <app-result-item *ngFor="let result of (removed$ | async)" [regex]="result" mode="removed"></app-result-item>
+        <!-- Finally, do all the other ones -->
+        <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
+    </div>
+</div>
+
+<ng-template #noResults>
+    <div class="results__no-results-container">
+        <h2>No results. Please query something first</h2>
+    </div>
+</ng-template>

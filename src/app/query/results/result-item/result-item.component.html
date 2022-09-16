@@ -1,0 +1,25 @@
+
+<mat-card *ngIf="!isExpanded; else expanded" class="result-item__container" [ngClass]="borderStyling">
+    <div mat-card-content class="results-item__content">
+        <code class="results-item__regex-text">{{ regex }}</code>
+        <div class="results-item__action-box">
+            <button mat-stroked-button (click)="setToClipboard()">
+                Copy
+                <mat-icon>content_copy</mat-icon>
+            </button>
+            <button mat-stroked-button (click)="showComingSoon()">
+                More Info
+               <mat-icon>info</mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-card>
+
+<ng-template #expanded>
+    <mat-card class="result-item-expanded__container">
+        <button mat-stroked-button>
+            More Info
+           <mat-icon>info</mat-icon>
+        </button>
+    </mat-card>
+</ng-template>

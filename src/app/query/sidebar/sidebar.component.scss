@@ -1,0 +1,59 @@
+
+.sidenav__container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+    height: 100%;
+
+    background-color: #fafafa;
+}
+
+.sidenav__title {
+    text-align: center;
+}
+
+.sidenav__inputs {
+    .input-box {
+        width: 100%;
+    }
+
+    .category-info {
+        display: flex;
+        align-items: center;
+
+        mat-form-field {
+            flex: 1;
+        }
+
+        .btn-box {
+            height: fit-content;
+            margin-left: 16px;
+            padding-bottom: 1.34375em;
+        }
+    }
+}
+
+.sidenav__examples {
+    flex: 1;
+    margin-top: 16px;
+
+    .example-text {
+        font-size: large;
+    }
+}
+
+.sidenav__examples__header {
+    margin-bottom: 0;
+}
+
+.sidenav__action-box {
+    button {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    button:last-child {
+        margin-bottom: 0;
+    }
+}

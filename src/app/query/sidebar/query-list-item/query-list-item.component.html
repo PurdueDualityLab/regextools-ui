@@ -1,0 +1,19 @@
+<div class="query-list-item__container" (mouseenter)="hovered = true" (mouseleave)="hovered = false" *ngIf="!editMode; else editWindow">
+    <div class="query-list-item__example-text">{{ text }}</div>
+    <div *ngIf="hovered" class="query-list-item__btn-box">
+        <button mat-icon-button (click)="editMode = true"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="removed.emit(text)"><mat-icon>remove</mat-icon></button>
+    </div>
+</div>
+
+<ng-template #editWindow>
+    <form class="query-list-item__container">
+        <mat-form-field class="query-list-item__example-text">
+            <input matInput [formControl]="editText">
+        </mat-form-field>
+        <div>
+            <button mat-icon-button (click)="edited.emit({ old: text, 'new': editText.value })"><mat-icon>check</mat-icon></button>
+            <button mat-icon-button (click)="editMode = false"><mat-icon>cancel</mat-icon></button>
+        </div>
+    </form>
+</ng-template>

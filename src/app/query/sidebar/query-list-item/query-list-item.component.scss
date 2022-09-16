@@ -1,0 +1,16 @@
+
+.query-list-item__container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.query-list-item__btn-box {
+    float: right;
+}
+
+.query-list-item__example-text {
+    font-size: large;
+    flex: 1;
+}
