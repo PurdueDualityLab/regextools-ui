@@ -5,7 +5,7 @@
     <div class="home__content-container">
         <mat-grid-list [cols]="3" rowHeight="2:1">
             <mat-grid-tile *ngFor="let tool of tools" [colspan]="1" [rowspan]="1">
-                <mat-card>
+                <mat-card class="home__tool-card">
                     <mat-card-title>{{ tool.title }}</mat-card-title>
                     <mat-card-content>
                         <p>{{ tool.description }}</p>

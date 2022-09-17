@@ -1,5 +1,7 @@
 
-<mat-card *ngIf="!isExpanded; else expanded" class="result-item__container" [ngClass]="borderStyling">
+<mat-card *ngIf="!isExpanded; else expanded" class="result-item__container"
+    [class.results-item__added-border]="mode === 'added'"
+    [class.results-item__removed-border]="mode === 'removed'">
     <div mat-card-content class="results-item__content">
         <code class="results-item__regex-text">{{ regex }}</code>
         <div class="results-item__action-box">

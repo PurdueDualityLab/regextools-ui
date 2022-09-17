@@ -43,8 +43,8 @@
             <mat-list-item *ngFor="let negativeExample of (negativeExamples$ | async)">
                 <app-query-list-item
                     [text]="negativeExample"
-                    (edited)="updateExample('positive', $event)"
-                    (removed)="removeExample('positive', $event)"
+                    (edited)="updateExample('negative', $event)"
+                    (removed)="removeExample('negative', $event)"
                     style="width: 100%; height: 100%;"
                 ></app-query-list-item>
             </mat-list-item>

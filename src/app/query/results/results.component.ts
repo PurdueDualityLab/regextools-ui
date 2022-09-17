@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ResultsStoreService } from '../results-store.service';
 
 @Component({
@@ -7,18 +8,30 @@ import { ResultsStoreService } from '../results-store.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent {
 
-  // results$ = this.resultsStore.results$;
+  @ViewChild('diffModeInfo', {static: true})
+  diffModeInfo!: TemplateRef<any>;
+
+  results$ = this.resultsStore.results$;
   added$ = this.resultsStore.added$;
   removed$ = this.resultsStore.removed$;
   same$ = this.resultsStore.same$;
-  hasResults$ = this.resultsStore.results$.pipe(map(results => results.length > 0));
+  resultCount$ = this.resultsStore.resultCount$;
+  hasResults$ = this.resultsStore.hasResults$;
+
+  useDiffMode = new FormControl(false);
 
   constructor(
     private readonly resultsStore: ResultsStoreService,
+    private readonly matDialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
+  openDiffModeHelp() {
+    this.matDialog.open(this.diffModeInfo);
+  }
+
+  resetResults() {
+    this.resultsStore.clear();
   }
 }

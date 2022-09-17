@@ -1,13 +1,20 @@
 
 <div class="results__container">
     <mat-toolbar color="primary">Search Results</mat-toolbar>
+    <div class="results__info-container">
+        <span class="results__sub-control-container results__sub-control-container__spaced">
+            <h3 class="results__sub-control__spaced">{{ resultCount$ | async }} Results</h3>
+            <button mat-button *ngIf="(hasResults$ | async)" color="accent" (click)="resetResults()" class="results__sub-control__spaced">
+                RESET
+            </button>
+        </span>
+        <span class="results__sub-control-container">
+            <mat-slide-toggle [formControl]="useDiffMode">Query Diff Mode</mat-slide-toggle>
+            <button mat-icon-button (click)="openDiffModeHelp()"><mat-icon>info</mat-icon></button>
+        </span>
+    </div>
     <div *ngIf="(hasResults$ | async); else noResults" class="results_list-container">
-        <!-- First, do the items that are added -->
-        <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
-        <!-- Next, do removed items -->
-        <app-result-item *ngFor="let result of (removed$ | async)" [regex]="result" mode="removed"></app-result-item>
-        <!-- Finally, do all the other ones -->
-        <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
+        <ng-container *ngIf="useDiffMode.value; then diffModeResults; else noDiffMode"></ng-container>
     </div>
 </div>
 
@@ -16,3 +23,33 @@
         <h2>No results. Please query something first</h2>
     </div>
 </ng-template>
+
+<ng-template #diffModeResults>
+    <!-- First, do the items that are added -->
+    <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
+    <!-- Next, do removed items -->
+    <app-result-item *ngFor="let result of (removed$ | async)" [regex]="result" mode="removed"></app-result-item>
+    <!-- Finally, do all the other ones -->
+    <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
+</ng-template>
+
+<ng-template #noDiffMode>
+    <app-result-item *ngFor="let result of (results$ | async)" [regex]="result" mode="same"></app-result-item>
+</ng-template>
+
+ <ng-template #diffModeInfo>
+    <div>
+        <h1 mat-dialog-title>About Query Diff Mode</h1>
+        <p mat-dialog-content>
+        Query diff mode is a feature that allows you to see how results change
+        after modifying the query. Each time you change the given examples and
+        query again, diff mode will show you which results are new, which results
+        got removed, and which ones stay the same. Green outlined results were
+        added, red outlined results were removed, and unstyled results stayed
+        the same.
+        </p>
+        <div mat-dialog-actions align="end">
+            <button mat-raised-button [matDialogClose] color="primary">CLOSE</button>
+        </div>
+    </div>
+ </ng-template>
