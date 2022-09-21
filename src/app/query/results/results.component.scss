@@ -42,3 +42,15 @@
         margin-right: 0;
     }
 }
+
+.results__diff-mode-settings__container {
+    padding: 8px 16px;
+
+    mat-checkbox {
+        margin-right: 16px;
+    }
+
+    mat-checkbox:last-child {
+        margin-right: 0;
+    }
+}

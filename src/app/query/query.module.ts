@@ -24,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -38,6 +39,7 @@ const MAT_MODULES = [
   MatSnackBarModule,
   MatSlideToggleModule,
   MatDialogModule,
+  MatCheckboxModule
 ];
 
 const CDK_MODULES = [

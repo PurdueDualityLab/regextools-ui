@@ -13,6 +13,13 @@
             <button mat-icon-button (click)="openDiffModeHelp()"><mat-icon>info</mat-icon></button>
         </span>
     </div>
+    <div *ngIf="useDiffMode.value" class="results__diff-mode-settings__container">
+        <form [formGroup]="enableSections">
+            <mat-checkbox formControlName="new">New Results</mat-checkbox>
+            <mat-checkbox formControlName="removed">Removed Results</mat-checkbox>
+            <mat-checkbox formControlName="same">Same Results</mat-checkbox>
+        </form>
+    </div>
     <div *ngIf="(hasResults$ | async); else noResults" class="results_list-container">
         <ng-container *ngIf="useDiffMode.value; then diffModeResults; else noDiffMode"></ng-container>
     </div>
@@ -25,12 +32,15 @@
 </ng-template>
 
 <ng-template #diffModeResults>
-    <!-- First, do the items that are added -->
-    <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
-    <!-- Next, do removed items -->
-    <app-result-item *ngFor="let result of (removed$ | async)" [regex]="result" mode="removed"></app-result-item>
-    <!-- Finally, do all the other ones -->
-    <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
+    <ng-container *ngIf="showNew">
+        <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
+    </ng-container>
+    <ng-container *ngIf="showRemoved">
+        <app-result-item *ngFor="let result of (removed$ | async)" [regex]="result" mode="removed"></app-result-item>
+    </ng-container>
+    <ng-container *ngIf="showSame">
+        <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
+    </ng-container>
 </ng-template>
 
 <ng-template #noDiffMode>
