@@ -1,6 +1,9 @@
 
 <div class="results__container">
-    <mat-toolbar color="primary">Search Results</mat-toolbar>
+    <mat-toolbar color="primary">
+        <a mat-icon-button routerLink="/home"><mat-icon>home</mat-icon></a>
+        Search Results
+    </mat-toolbar>
     <div class="results__info-container">
         <span class="results__sub-control-container results__sub-control-container__spaced">
             <h3 class="results__sub-control__spaced">{{ resultCount$ | async }} Results</h3>
