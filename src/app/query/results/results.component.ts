@@ -19,6 +19,7 @@ export class ResultsComponent {
   same$ = this.resultsStore.same$;
   resultCount$ = this.resultsStore.resultCount$;
   hasResults$ = this.resultsStore.hasResults$;
+  isLoading$ = this.resultsStore.isLoading$;
 
   useDiffMode = new FormControl(false);
 

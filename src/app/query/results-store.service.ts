@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegexDBQuery, RegexDBResponse } from './query.model';
 
@@ -12,6 +12,7 @@ export interface ResultsState {
   added: number[];
   removed: string[];
   same: number[];
+  loading: boolean;
 }
 
 @Injectable({
@@ -19,6 +20,7 @@ export interface ResultsState {
 })
 export class ResultsStoreService extends ComponentStore<ResultsState> {
 
+  readonly isLoading$ = this.select(state => state.loading);
   readonly results$ = this.select(state => state.results);
   readonly added$ = this.select(state => state.added.map(idx => state.results[idx]));
   readonly removed$ = this.select(state => state.removed);
@@ -46,16 +48,26 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
       added: addedResultsIdx,
       removed: removedResults,
       same: sameResultsIdx,
+      loading: false,
     };
   });
 
-  readonly clear = this.updater(() => ({ results: [], added: [], removed: [], same: [] }));
+  readonly toggleLoadingState = this.updater((state, newLoadingState: boolean) => ({ ...state, loading: newLoadingState }));
+
+  readonly clear = this.updater(() => ({ results: [], added: [], removed: [], same: [], loading: false }));
 
   readonly query = this.effect((regexQuery$: Observable<RegexDBQuery>) => regexQuery$.pipe(
+    tapResponse(
+      () => this.toggleLoadingState(true), // set loading first. Gets unset when updateResults completes
+      (err) => console.log(err)
+    ),
     switchMap(query => this.http.post<RegexDBResponse>(`${environment.apiBase}/query`, query).pipe(
       map(response => response.results),
       tapResponse(
-        (results) => this.updateResults(results),
+        (results) => {
+          this.toggleLoadingState(false);
+          this.updateResults(results);
+        },
         (error) => console.log(error),
       )
     )),
@@ -69,6 +81,7 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
       added: [],
       removed: [],
       same: [],
+      loading: false,
     });
   }
 }

@@ -25,6 +25,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -39,7 +40,8 @@ const MAT_MODULES = [
   MatSnackBarModule,
   MatSlideToggleModule,
   MatDialogModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatProgressBarModule,
 ];
 
 const CDK_MODULES = [

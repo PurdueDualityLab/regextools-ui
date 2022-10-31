@@ -23,6 +23,7 @@
             <mat-checkbox formControlName="same">Same Results</mat-checkbox>
         </form>
     </div>
+    <mat-progress-bar *ngIf="(isLoading$ | async)"  mode="indeterminate" color="primary"></mat-progress-bar>
     <div *ngIf="(hasResults$ | async); else noResults" class="results_list-container">
         <ng-container *ngIf="useDiffMode.value; then diffModeResults; else noDiffMode"></ng-container>
     </div>
