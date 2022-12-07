@@ -1,6 +1,8 @@
-import { Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ResultsStoreService } from '../results-store.service';
 
 @Component({
@@ -14,14 +16,18 @@ export class ResultsComponent {
   diffModeInfo!: TemplateRef<any>;
 
   results$ = this.resultsStore.results$;
+  /*
   added$ = this.resultsStore.added$;
   removed$ = this.resultsStore.removed$;
-  same$ = this.resultsStore.same$;
+  same$ = this.resultsStore.same$; */
   resultCount$ = this.resultsStore.resultCount$;
   hasResults$ = this.resultsStore.hasResults$;
   isLoading$ = this.resultsStore.isLoading$;
+  pageState$ = this.resultsStore.pageState$;
 
   useDiffMode = new FormControl(false);
+
+  currentPageEvent$ = new Subject<PageEvent>();
 
   enableSections = new FormGroup({
     new: new FormControl(true),
@@ -52,5 +58,9 @@ export class ResultsComponent {
 
   resetResults() {
     this.resultsStore.clear();
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.resultsStore.handlePage(event);
   }
 }

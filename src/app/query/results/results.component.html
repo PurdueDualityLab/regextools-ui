@@ -12,7 +12,8 @@
             </button>
         </span>
         <span class="results__sub-control-container">
-            <mat-slide-toggle [formControl]="useDiffMode">Query Diff Mode</mat-slide-toggle>
+            <!--TODO add a tooltip here to explain why it's disabled-->
+            <mat-slide-toggle [formControl]="useDiffMode" [disabled]="true">Query Diff Mode</mat-slide-toggle>
             <button mat-icon-button (click)="openDiffModeHelp()"><mat-icon>info</mat-icon></button>
         </span>
     </div>
@@ -36,6 +37,7 @@
 </ng-template>
 
 <ng-template #diffModeResults>
+    <!--
     <ng-container *ngIf="showNew">
         <app-result-item *ngFor="let result of (added$ | async)" [regex]="result" mode="added"></app-result-item>
     </ng-container>
@@ -45,10 +47,19 @@
     <ng-container *ngIf="showSame">
         <app-result-item *ngFor="let result of (same$ | async)" [regex]="result" mode="same"></app-result-item>
     </ng-container>
+    -->
+    <h1>Temporarily Disabled Feature</h1>
 </ng-template>
 
 <ng-template #noDiffMode>
     <app-result-item *ngFor="let result of (results$ | async)" [regex]="result" mode="same"></app-result-item>
+    <ng-container *ngIf="(pageState$ | async) as pageState">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"
+            [pageIndex]="pageState.pageNum" [pageSize]="pageState.pageSize" [length]="pageState.pageCount"
+            (page)="handlePageEvent($event)"
+            showFirstLastButtons>
+        </mat-paginator>
+    </ng-container>
 </ng-template>
 
  <ng-template #diffModeInfo>

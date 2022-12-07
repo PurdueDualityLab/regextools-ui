@@ -26,6 +26,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { QueryService } from './query.service';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -42,6 +44,7 @@ const MAT_MODULES = [
   MatDialogModule,
   MatCheckboxModule,
   MatProgressBarModule,
+  MatPaginatorModule
 ];
 
 const CDK_MODULES = [
@@ -68,6 +71,7 @@ const CDK_MODULES = [
   providers: [
     QueryStoreService,
     ResultsStoreService,
+    QueryService,
   ]
 })
 export class QueryModule { }

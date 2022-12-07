@@ -67,7 +67,7 @@ export class SidebarComponent implements OnInit {
 
   onQuery() {
     // TODO this might be leaking memory???
-    this.resultsStore.query(this.queryStore.query$.pipe(take(1)));
+    this.resultsStore.executeQuery(this.queryStore.query$.pipe(take(1)));
   }
 
   onResetForm() {
