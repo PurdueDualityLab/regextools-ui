@@ -1,0 +1,25 @@
+
+<div>
+    <mat-toolbar color="primary">
+        <a mat-icon-button routerLink="/home"><mat-icon>home</mat-icon></a>
+        Static Analysis
+    </mat-toolbar>
+    <div class="static-analysis__container">
+        <div class="static-analysis__regex-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Regex to analyze</mat-label>
+                <input matInput [formControl]="regexInput">
+                <mat-error *ngIf="regexInput.hasError('minLength')">Must specify regex of length >= 1</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="regexInput.invalid" (click)="analyze()">Analyze</button>
+        </div>
+        <div>
+            <code *ngIf="info.length > 0; else noInfoMsg" class="static-analysis__console-output">
+                {{ info }}
+            </code>
+        </div>
+    </div>
+</div>
+<ng-template #noInfoMsg>
+    <p>Enter a regex in the input field to get started.</p>
+</ng-template>

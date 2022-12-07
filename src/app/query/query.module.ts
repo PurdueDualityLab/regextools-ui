@@ -63,7 +63,6 @@ const CDK_MODULES = [
     CommonModule,
     QueryRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
 
     ...MAT_MODULES,
     ...CDK_MODULES,

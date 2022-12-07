@@ -1,0 +1,38 @@
+
+<div>
+    <mat-toolbar color="primary">
+        <a mat-icon-button routerLink="/home"><mat-icon>home</mat-icon></a>
+        Regex Rewriter
+    </mat-toolbar>
+    <div class="rewrite__container">
+        <div>
+            <mat-form-field appearance="outline" class="rewrite__input">
+                <mat-label>Regex to rewrite</mat-label>
+                <input matInput [formControl]="regexInput">
+                <mat-error *ngIf="regexInput.hasError('required')">Regex required</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="regexInput.invalid" (click)="submit()">Submit</button>
+        </div>
+        <div *ngIf="!(loading$ | async); else loading">
+            <div *ngIf="rewrittenRegex.length > 0; else noRewrite">
+                <h3>Rewritten regex:</h3>
+                <code class="rewrite__regex-text rewrite__rewritten-regex">
+                    <span #rewrittenRegexText class="rewrite__regex-text">{{ unescapeRegex(rewrittenRegex) }}</span>
+                    <button [cdkCopyToClipboard]="rewrittenRegexText.innerText" (cdkCopyToClipboardCopied)="showClipboardConfirmation()" mat-icon-button>
+                        <mat-icon>content_paste</mat-icon>
+                    </button>
+                </code>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div>
+        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+</ng-template>
+
+<ng-template #noRewrite>
+    <p>Enter a regex and click 'submit' to rewrite your regex.</p>
+</ng-template>

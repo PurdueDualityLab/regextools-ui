@@ -19,6 +19,16 @@ export class HomeComponent implements OnInit {
       description: 'Search a database of existing regexes to find one that fits your usecase',
       link: '/query'
     },
+    {
+      title: 'Regex Rewriter',
+      description: 'Rewrite potentially dangerous regular expressions',
+      link: '/rewrite'
+    },
+    {
+      title: 'Regex Static Analysis',
+      description: 'Analyze regular expressions',
+      link: '/analyze'
+    }
   ];
 
   constructor() { }

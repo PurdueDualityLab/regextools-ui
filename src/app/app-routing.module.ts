@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
+    path: 'rewrite',
+    loadChildren: () => import('./rewrite/rewrite.module').then(m => m.RewriteModule),
+  },
+  {
+    path: 'analyze',
+    loadChildren: () => import('./static-analysis/static-analysis.module').then(m => m.StaticAnalysisModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: '/home'

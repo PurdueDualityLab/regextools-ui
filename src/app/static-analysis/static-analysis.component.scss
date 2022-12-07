@@ -1,0 +1,17 @@
+.static-analysis__container {
+    padding: 16px 32px;
+}
+
+.static-analysis__regex-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        margin-left: 16px;
+    }
+}
+
+.static-analysis__console-output {
+    white-space: break-spaces;
+}
