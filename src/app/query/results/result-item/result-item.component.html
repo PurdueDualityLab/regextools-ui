@@ -9,10 +9,10 @@
                 Copy
                 <mat-icon>content_copy</mat-icon>
             </button>
-            <button mat-stroked-button (click)="showComingSoon()">
-                More Info
+            <a mat-stroked-button href="{{ (createRegex101Url$() | async) }}" target="_blank">
+                Regex101
                <mat-icon>info</mat-icon>
-            </button>
+            </a>
         </div>
     </div>
 </mat-card>
