@@ -28,6 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { QueryService } from './query.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -44,7 +45,8 @@ const MAT_MODULES = [
   MatDialogModule,
   MatCheckboxModule,
   MatProgressBarModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatTooltipModule,
 ];
 
 const CDK_MODULES = [

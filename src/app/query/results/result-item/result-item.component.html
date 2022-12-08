@@ -9,7 +9,9 @@
                 Copy
                 <mat-icon>content_copy</mat-icon>
             </button>
-            <a mat-stroked-button href="{{ (createRegex101Url$() | async) }}" target="_blank">
+            <a mat-stroked-button href="{{ (createRegex101Url$() | async) }}" target="_blank"
+                matTooltip="Explore this regex further in regex101.com"
+                matTooltipShowDelay="750">
                 Regex101
                <mat-icon>info</mat-icon>
             </a>

@@ -13,7 +13,10 @@
         </span>
         <span class="results__sub-control-container">
             <!--TODO add a tooltip here to explain why it's disabled-->
-            <mat-slide-toggle [formControl]="useDiffMode" [disabled]="true">Query Diff Mode</mat-slide-toggle>
+            <mat-slide-toggle [formControl]="useDiffMode" [disabled]="true"
+                matTooltip="This feature is currently in progress">
+                Query Diff Mode
+            </mat-slide-toggle>
             <button mat-icon-button (click)="openDiffModeHelp()"><mat-icon>info</mat-icon></button>
         </span>
     </div>
