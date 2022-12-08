@@ -4,7 +4,7 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 import { withLatestFrom, } from 'rxjs/operators';
 import { RegexDBQuery } from './query.model';
-import { QueryRequest, QueryResponse, QueryService } from './query.service';
+import { ParticipantTrackingInfo, QueryRequest, QueryResponse, QueryService } from './query.service';
 
 export type ResultState = 'added' | 'removed' | 'same';
 
@@ -16,6 +16,7 @@ export interface ResultsState {
   pageSize?: number;
   pageNum?: number;
   pageCount?: number;
+  trackingInfo: ParticipantTrackingInfo | null,
 }
 
 const resultStateFromQueryResponse = (response: QueryResponse): ResultsState => ({
@@ -26,7 +27,8 @@ const resultStateFromQueryResponse = (response: QueryResponse): ResultsState => 
   pageSize: response.pageSize,
   pageNum: response.pageNum,
   pageCount: response.pageCount,
-})
+  trackingInfo: null
+});
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +45,14 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
   readonly hasResults$ = this.select(state => state.results.length > 0);
   readonly resultCount$ = this.select(state => state.total);
   readonly pageState$ = this.select(state => ({ pageSize: state.pageSize ?? 0, pageNum: state.pageNum ?? 0, pageCount: state.total }));
+  readonly trackingInfo$ = this.select(state => state.trackingInfo);
 
   /* Updaters */
   readonly setLoading = this.updater((state, isLoading: boolean) => ({ ...state, loading: isLoading }));
   readonly setStateFromResponse = this.updater((state, queryResponse: QueryResponse) => resultStateFromQueryResponse(queryResponse));
-  readonly clear = this.updater(() => ({ results: [], loading: false, total: 0 }));
+  readonly clear = this.updater(() => ({ results: [], loading: false, total: 0, trackingInfo: null }));
   readonly updatePaging = this.updater((state, pageEv: PageEvent) => ({ ...state, pageCount: pageEv.length, pageSize: pageEv.pageSize, pageNum: pageEv.pageIndex }));
+  readonly setTrackingInfo = this.updater((state, trackingInfo: ParticipantTrackingInfo) => ({ ...state, trackingInfo }));
 
   /* Effects */
   readonly executeQuery = this.effect((query$: Observable<RegexDBQuery>) => query$.pipe(
@@ -71,10 +75,11 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
         return { ...query } as QueryRequest;
       }
     }),
+    withLatestFrom(this.trackingInfo$),
     tapResponse(
-      request => {
+      ([request, trackingInfo]) => {
         console.log('ExecuteQuery::tapResponse - executing query...');
-        const results$ = this.queryService.execute(request);
+        const results$ = this.queryService.execute(request, trackingInfo);
         console.log('ExecuteQuery::tapResponse - updating state...');
         this.setStateFromResponse(results$); // This clears the loading flag
         console.log('ExecuteQuery::tapResponse - done')
@@ -106,7 +111,8 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
       total: 0,
       loading: false,
       pageSize: 10,
-      pageNum: 0
+      pageNum: 0,
+      trackingInfo: null,
     });
   }
 }
