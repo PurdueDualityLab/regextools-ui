@@ -1,7 +1,19 @@
 
-<div class="query-page__container">
+<div *ngIf="!(isMobile$ | async); else mobileVersion" class="query-page__container">
     <app-sidebar class="query-page__sidenav"></app-sidebar>
     <div class="query-page__main-content">
         <app-results></app-results>
     </div>
 </div>
+
+<ng-template #mobileVersion>
+<div class="query-page__container__mobile">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>Query Info</mat-expansion-panel-header>
+        <app-sidebar class="query-page__sidenav"></app-sidebar>
+    </mat-expansion-panel>
+    <div class="query-page__main-content">
+        <app-results></app-results>
+    </div>
+</div>
+</ng-template>

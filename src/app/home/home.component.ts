@@ -1,4 +1,6 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { map, of } from 'rxjs';
 
 export interface RegexTool {
   title: string;
@@ -31,8 +33,16 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  colCount$ = of(3);
+
+  constructor(
+    private readonly breakpointObserver: BreakpointObserver,
+  ) { }
 
   ngOnInit(): void {
+    this.colCount$ = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
+      .pipe(
+        map(isMatched => isMatched.matches ? 1 : 3)
+      );
   }
 }

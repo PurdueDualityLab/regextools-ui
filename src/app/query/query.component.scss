@@ -3,6 +3,12 @@
     height: 100%;
 }
 
+.query-page__container__mobile {
+    @extend .query-page__container;
+    display: flex;
+    flex-direction: column;
+}
+
 .query-page__sidenav {
     flex: 1;
 }
