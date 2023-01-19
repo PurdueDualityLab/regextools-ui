@@ -3,18 +3,24 @@
     [class.results-item__added-border]="mode === 'added'"
     [class.results-item__removed-border]="mode === 'removed'">
     <div mat-card-content class="results-item__content">
-        <code class="results-item__regex-text">{{ regex }}</code>
-        <div class="results-item__action-box">
-            <button mat-stroked-button (click)="setToClipboard()">
-                Copy
-                <mat-icon>content_copy</mat-icon>
-            </button>
-            <a mat-stroked-button href="{{ (createRegex101Url$() | async) }}" target="_blank"
-                matTooltip="Explore this regex further in regex101.com"
-                matTooltipShowDelay="750">
-                Regex101
-               <mat-icon>info</mat-icon>
-            </a>
+        <div class="results-item__main-info">
+            <code class="results-item__regex-text">{{ regex.pattern }}</code>
+            <div class="results-item__action-box">
+                <button mat-stroked-button (click)="setToClipboard()">
+                    Copy
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+                <a mat-stroked-button href="{{ (createRegex101Url$() | async) }}" target="_blank"
+                    matTooltip="Explore this regex further in regex101.com"
+                    matTooltipShowDelay="750">
+                    Regex101
+                <mat-icon>info</mat-icon>
+                </a>
+            </div>
+        </div>
+        <div class="results-item__source-info">
+            <span class="results-item__license-info">License: <b>{{ regex.license }}</b></span>
+            <a mat-button color="accent" [href]="createRepoLink(regex.location)" target="_blank">View Regex Source</a>
         </div>
     </div>
 </mat-card>

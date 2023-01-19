@@ -29,6 +29,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { QueryService } from './query.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -47,6 +48,7 @@ const MAT_MODULES = [
   MatProgressBarModule,
   MatPaginatorModule,
   MatTooltipModule,
+  MatChipsModule,
 ];
 
 const CDK_MODULES = [

@@ -1,3 +1,4 @@
+import { RegexEntity } from "./regex-entity.model";
 
 export interface RegexDBQuery {
     positive: string[];
@@ -5,5 +6,5 @@ export interface RegexDBQuery {
 }
 
 export interface RegexDBResponse {
-    results: string[];
+    results: RegexEntity[];
 }

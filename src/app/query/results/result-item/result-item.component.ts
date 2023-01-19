@@ -2,8 +2,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Clipboard as CdkClipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { combineLatest, forkJoin, map, Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { QueryStoreService } from '../../query-store.service';
+import { RegexEntity, RemoteSourceLoc } from '../../regex-entity.model';
 import { ResultState } from '../../results-store.service';
 
 @Component({
@@ -25,7 +26,7 @@ import { ResultState } from '../../results-store.service';
 })
 export class ResultItemComponent implements OnInit {
 
-  @Input() regex = '';
+  @Input() regex!: RegexEntity;
   @Input() mode: ResultState = 'same';
   isExpanded = false;
 
@@ -57,7 +58,7 @@ export class ResultItemComponent implements OnInit {
 
           const allText = [positiveBlock, negativeBlock].join('\n');
 
-          const encodedRegex = encodeURIComponent(this.regex);
+          const encodedRegex = encodeURIComponent(this.regex.pattern);
           const encodedText = encodeURIComponent(allText);
 
           return `https://regex101.com/?regex=${encodedRegex}&testString=${encodedText}`;
@@ -66,11 +67,15 @@ export class ResultItemComponent implements OnInit {
   }
 
   setToClipboard() {
-    const good = this.clipboard.copy(this.regex);
+    const good = this.clipboard.copy(this.regex.pattern);
     if (good) {
       this.snackBar.open('Regex coped to clipboard', 'DISMISS', { duration: 3000 });
     } else {
       this.snackBar.open('Could not copy regex to clipboard', 'DISMISS', { duration: 3000 });
     }
+  }
+
+  createRepoLink(location: RemoteSourceLoc): string {
+    return `${location.repo}/blob/${location.commit}/${location.file}#L${location.lineNo}`;
   }
 }

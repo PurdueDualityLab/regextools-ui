@@ -18,6 +18,11 @@
 
 .results-item__content {
     display: flex;
+    flex-direction: column;
+}
+
+.results-item__main-info {
+    display: flex;
     align-items: center;
 }
 
@@ -36,6 +41,15 @@
     }
 }
 
+.results-item__source-info {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+
+    .results-item__license-info {
+        margin-right: 16px;
+    }
+}
 
 .result-item-expanded__container {
     @extend .result-item__container;

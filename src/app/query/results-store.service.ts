@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { withLatestFrom, } from 'rxjs/operators';
 import { RegexDBQuery } from './query.model';
 import { ParticipantTrackingInfo, QueryRequest, QueryResponse, QueryService } from './query.service';
+import { RegexEntity } from './regex-entity.model';
 
 export type ResultState = 'added' | 'removed' | 'same';
 
 export interface ResultsState {
-  results: string[];
+  results: RegexEntity[];
   total: number;
   loading: boolean;
   cacheKey?: string;
