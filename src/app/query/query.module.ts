@@ -30,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { QueryService } from './query.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
+import { MoreInfoDialogComponent } from './more-info-dialog/more-info-dialog.component';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -49,6 +50,7 @@ const MAT_MODULES = [
   MatPaginatorModule,
   MatTooltipModule,
   MatChipsModule,
+  MatDialogModule,
 ];
 
 const CDK_MODULES = [
@@ -61,7 +63,8 @@ const CDK_MODULES = [
     SidebarComponent,
     QueryListItemComponent,
     ResultsComponent,
-    ResultItemComponent
+    ResultItemComponent,
+    MoreInfoDialogComponent
   ],
   imports: [
     CommonModule,
