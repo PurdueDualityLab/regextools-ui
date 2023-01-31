@@ -3,6 +3,7 @@ import { Clipboard as CdkClipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest, map, Observable } from 'rxjs';
+import { MoreInfoDialogService } from '../../more-info-dialog/more-info-dialog.service';
 import { QueryStoreService } from '../../query-store.service';
 import { RegexEntity, RemoteSourceLoc } from '../../regex-entity.model';
 import { ResultState } from '../../results-store.service';
@@ -39,6 +40,7 @@ export class ResultItemComponent implements OnInit {
     private readonly snackBar: MatSnackBar,
     private readonly clipboard: CdkClipboard,
     private readonly queryStore: QueryStoreService,
+    private readonly moreInfoDialogService: MoreInfoDialogService,
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +78,10 @@ export class ResultItemComponent implements OnInit {
   }
 
   createRepoLink(location: RemoteSourceLoc): string {
-    return `${location.repo}/blob/${location.commit}/${location.file}#L${location.lineNo}`;
+    return `${location.repoLocation}/blob/${location.commit}/${location.sourceFile}#L${location.lineNumber}`;
+  }
+
+  openMoreInfo() {
+    this.moreInfoDialogService.openDialogForRegex(this.regex).afterClosed().subscribe(() => {});
   }
 }

@@ -31,6 +31,8 @@ import { QueryService } from './query.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MoreInfoDialogComponent } from './more-info-dialog/more-info-dialog.component';
+import { MoreInfoDialogService } from './more-info-dialog/more-info-dialog.service';
+import { LocationDisplayComponent } from './location-display/location-display.component';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -64,7 +66,8 @@ const CDK_MODULES = [
     QueryListItemComponent,
     ResultsComponent,
     ResultItemComponent,
-    MoreInfoDialogComponent
+    MoreInfoDialogComponent,
+    LocationDisplayComponent
   ],
   imports: [
     CommonModule,
@@ -78,6 +81,7 @@ const CDK_MODULES = [
     QueryStoreService,
     ResultsStoreService,
     QueryService,
+    MoreInfoDialogService,
   ]
 })
 export class QueryModule { }

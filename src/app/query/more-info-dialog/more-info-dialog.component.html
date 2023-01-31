@@ -1,4 +1,18 @@
 
-<div>
-    
+<div class="more-info__container">
+    <h1>More Regex Info</h1>
+    <code class="more-info__regex-text">{{ entity.pattern }}</code>
+    <mat-divider class="more-info__section-divider"></mat-divider>
+    <div class="more-info__location-displays-box">
+        <h2>Source Locations</h2>
+        <app-location-display *ngFor="let location of entity.sourceLocations" [location]="location"></app-location-display>
+    </div>
+    <mat-divider class="more-info__section-divider"></mat-divider>
+    <!--<div>
+        <iframe src="https://regexper.com/#%5E%28%5Cw%7B1%7D%29%28%5Cw%7B1%7D%29%28%5Cw%7B1%7D%29%24" title="Regex RR Diagram" class="more-info__rr-iframe"></iframe>
+    </div>-->
+    <div class="more-info__expander"></div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" [mat-dialog-close]="">CLOSE</button>
+    </div>
 </div>

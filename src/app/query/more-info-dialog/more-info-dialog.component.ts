@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RegexEntity } from '../regex-entity.model';
+
+export interface MoreInfoDialogInput {
+  entity: RegexEntity;
+}
 
 @Component({
   selector: 'app-more-info-dialog',
@@ -7,9 +13,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoreInfoDialogComponent implements OnInit {
 
-  constructor() { }
+  entity!: RegexEntity;
 
-  ngOnInit(): void {
+  constructor(
+    private readonly matDialogRef: MatDialogRef<MoreInfoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private readonly dialogInput: MoreInfoDialogInput,
+  ) {
   }
 
+  ngOnInit(): void {
+    this.entity = this.dialogInput.entity;
+  }
 }
