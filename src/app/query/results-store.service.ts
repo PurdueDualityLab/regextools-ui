@@ -51,7 +51,7 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
   /* Updaters */
   readonly setLoading = this.updater((state, isLoading: boolean) => ({ ...state, loading: isLoading }));
   readonly setStateFromResponse = this.updater((state, queryResponse: QueryResponse) => resultStateFromQueryResponse(queryResponse));
-  readonly clear = this.updater(() => ({ results: [], loading: false, total: 0, trackingInfo: null }));
+  readonly clear = this.updater((state) => ({ results: [], loading: false, total: 0, trackingInfo: state.trackingInfo, pageSize: 10, pageNum: 0, pageCount: 0, cacheKey: undefined }));
   readonly updatePaging = this.updater((state, pageEv: PageEvent) => ({ ...state, pageCount: pageEv.length, pageSize: pageEv.pageSize, pageNum: pageEv.pageIndex }));
   readonly setTrackingInfo = this.updater((state, trackingInfo: ParticipantTrackingInfo) => ({ ...state, trackingInfo }));
 
@@ -61,7 +61,8 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
     withLatestFrom(this.cacheKey$, this.pageSize$, this.pageNum$),
     map(([query, cacheKey, pageSize, pageNum]) => {
       console.log(`ExecuteQuery: got cache key ${cacheKey}`);
-      if ([pageSize && pageNum]) {
+      console.log(`ExecuteQuery: got pageSize=${pageSize} and pageNum=${pageNum}`);
+      if (pageSize !== undefined && pageNum !== undefined) {
         // load the rest of the paging info
         return {
           ...query,
@@ -73,7 +74,7 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
         } as QueryRequest;
       } else {
         // We have no paging info, so don't send it over
-        return { ...query } as QueryRequest;
+        return { ...query, pageRequest: undefined } as QueryRequest;
       }
     }),
     withLatestFrom(this.trackingInfo$),
