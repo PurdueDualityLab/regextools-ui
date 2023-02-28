@@ -28,8 +28,14 @@
 
     <div class="sidenav__examples">
         <h2 class="sidenav__examples__header">Positive Examples</h2>
-        <mat-list>
-            <mat-list-item *ngFor="let positiveExample of (positiveExamples$ | async)">
+        <mat-list cdkDropList
+            #positiveList="cdkDropList"
+            [cdkDropListData]="positiveExamples$ | async"
+            [cdkDropListConnectedTo]="[negativeList]"
+            (cdkDropListDropped)="moveItem($event)"
+        >
+            <mat-list-item *ngFor="let positiveExample of (positiveExamples$ | async)" cdkDrag [cdkDragData]="positiveExample">
+                <mat-icon cdkDragHandle class="sidenav__examples__drag-handle">drag_indicator</mat-icon>
                 <app-query-list-item
                     [text]="positiveExample"
                     (edited)="updateExample('positive', $event)"
@@ -39,8 +45,14 @@
             </mat-list-item>
         </mat-list>
         <h2 class="sidenav__examples__header">Negative Examples</h2>
-        <mat-list>
-            <mat-list-item *ngFor="let negativeExample of (negativeExamples$ | async)">
+        <mat-list cdkDropList
+            #negativeList="cdkDropList"
+            [cdkDropListData]="negativeExamples$ | async"
+            [cdkDropListConnectedTo]="[positiveList]"
+            (cdkDropListDropped)="moveItem($event)"
+        >
+            <mat-list-item *ngFor="let negativeExample of (negativeExamples$ | async)" cdkDrag [cdkDragData]="negativeExample">
+                <mat-icon cdkDragHandle class="sidenav__examples__drag-handle">drag_indicator</mat-icon>
                 <app-query-list-item
                     [text]="negativeExample"
                     (edited)="updateExample('negative', $event)"

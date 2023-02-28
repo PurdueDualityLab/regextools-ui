@@ -34,6 +34,7 @@ import { MoreInfoDialogComponent } from './more-info-dialog/more-info-dialog.com
 import { MoreInfoDialogService } from './more-info-dialog/more-info-dialog.service';
 import { LocationDisplayComponent } from './location-display/location-display.component';
 import { ForumLocationDisplayComponent } from './forum-location-display/forum-location-display.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -58,6 +59,7 @@ const MAT_MODULES = [
 
 const CDK_MODULES = [
   ClipboardModule,
+  DragDropModule
 ];
 
 @NgModule({
