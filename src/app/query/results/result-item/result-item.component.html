@@ -19,7 +19,8 @@
             </div>
         </div>
         <div class="results-item__source-info">
-            <a mat-button color="accent" [href]="createRepoLink(regex.sourceLocations[0])" target="_blank">View Example Regex Source</a>
+            <a mat-button *ngIf="regex.sourceLocations.length > 0" color="accent" [href]="createRepoLink(regex.sourceLocations[0])" target="_blank">View Example Regex Source</a>
+            <a mat-button *ngIf="regex.forumLocations.length > 0" color="accent" [href]="regex.forumLocations[0].uri" target="_blank">View Forum Example</a>
             <span style="flex: 1;"></span>
             <button mat-flat-button color="accent" (click)="openMoreInfo()">MORE INFO</button>
         </div>

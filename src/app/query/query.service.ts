@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegexEntity } from './regex-entity.model';
 
@@ -46,6 +46,11 @@ export class QueryService {
 
     return this.http.post<QueryResponse>(`${environment.apiBase}/query`, request, {
       params: httpParams
-    });
+    }).pipe(
+      map(response => {
+        const fixedResults = response.results.map(result => ({ ...result, sourceLocations: result.sourceLocations ?? [], forumLocations: result.forumLocations ?? [] }));
+        return ({ ...response, results: fixedResults });
+      }),
+    );
   }
 }

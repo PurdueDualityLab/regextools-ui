@@ -3,9 +3,16 @@
     <h1>More Regex Info</h1>
     <code class="more-info__regex-text">{{ entity.pattern }}</code>
     <mat-divider class="more-info__section-divider"></mat-divider>
-    <div class="more-info__location-displays-box">
+    <div class="more-info__location-displays-box" *ngIf="entity.sourceLocations.length > 0">
         <h2>Source Locations</h2>
         <app-location-display *ngFor="let location of entity.sourceLocations" [location]="location"></app-location-display>
+    </div>
+    <mat-divider class="more-info__section-divider"></mat-divider>
+    <div *ngIf="entity.forumLocations.length > 0">
+        <h2>Forum Locations</h2>
+        <ul>
+            <li *ngFor="let forumLoc of entity.forumLocations"><a [href]="forumLoc.uri" target="_blank">Forum Link</a></li>
+        </ul>
     </div>
     <mat-divider class="more-info__section-divider"></mat-divider>
     <!--<div>
