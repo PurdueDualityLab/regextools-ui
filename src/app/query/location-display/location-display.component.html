@@ -1,6 +1,5 @@
-
-<div class="location-display__container">
-    <p>Repo: {{ location.repoLocation }}</p>
-    <p>License: {{ location.license }}</p>
-    <a mat-button color="accent" href="{{repoPermaLink}}" target="_blank">VISIT USE</a>
-</div>
+<mat-list-item>
+    <img matListAvatar src="assets/github-mark.png" alt="GH">
+    <a matLine href="{{ repoPermaLink }}" target="_blank">{{ repoName }}</a>
+    <p matLine>License: {{ location.license }}</p>
+</mat-list-item>

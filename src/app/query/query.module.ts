@@ -33,6 +33,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MoreInfoDialogComponent } from './more-info-dialog/more-info-dialog.component';
 import { MoreInfoDialogService } from './more-info-dialog/more-info-dialog.service';
 import { LocationDisplayComponent } from './location-display/location-display.component';
+import { ForumLocationDisplayComponent } from './forum-location-display/forum-location-display.component';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -67,7 +68,8 @@ const CDK_MODULES = [
     ResultsComponent,
     ResultItemComponent,
     MoreInfoDialogComponent,
-    LocationDisplayComponent
+    LocationDisplayComponent,
+    ForumLocationDisplayComponent
   ],
   imports: [
     CommonModule,
