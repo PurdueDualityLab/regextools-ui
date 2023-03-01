@@ -18,6 +18,7 @@ export interface QueryRequest {
 
 export interface QueryResponse {
   results: RegexEntity[];
+  sortScores: number[];
   total: number;
   cacheKey: string;
   pageCount: number;

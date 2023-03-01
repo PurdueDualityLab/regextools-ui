@@ -35,6 +35,8 @@ import { MoreInfoDialogService } from './more-info-dialog/more-info-dialog.servi
 import { LocationDisplayComponent } from './location-display/location-display.component';
 import { ForumLocationDisplayComponent } from './forum-location-display/forum-location-display.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CoverageService } from './coverage.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const MAT_MODULES = [
   MatButtonModule,
@@ -55,6 +57,7 @@ const MAT_MODULES = [
   MatTooltipModule,
   MatChipsModule,
   MatDialogModule,
+  MatProgressSpinnerModule,
 ];
 
 const CDK_MODULES = [
@@ -86,6 +89,7 @@ const CDK_MODULES = [
     ResultsStoreService,
     QueryService,
     MoreInfoDialogService,
+    CoverageService,
   ]
 })
 export class QueryModule { }

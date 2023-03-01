@@ -55,7 +55,7 @@
 </ng-template>
 
 <ng-template #noDiffMode>
-    <app-result-item *ngFor="let result of (results$ | async)" [regex]="result" mode="same"></app-result-item>
+    <app-result-item *ngFor="let result of (results$ | async)" [regex]="result.result" [coverage]="result.coverage" mode="same"></app-result-item>
     <ng-container *ngIf="(pageState$ | async) as pageState">
         <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"
             [pageIndex]="pageState.pageNum" [pageSize]="pageState.pageSize" [length]="pageState.pageCount"

@@ -11,6 +11,7 @@ export type ResultState = 'added' | 'removed' | 'same';
 
 export interface ResultsState {
   results: RegexEntity[];
+  sortScores: number[];
   total: number;
   loading: boolean;
   cacheKey?: string;
@@ -20,8 +21,14 @@ export interface ResultsState {
   trackingInfo: ParticipantTrackingInfo | null,
 }
 
+export interface ResultWithCoverage {
+  result: RegexEntity;
+  coverage: number;
+}
+
 const resultStateFromQueryResponse = (response: QueryResponse): ResultsState => ({
   results: response.results,
+  sortScores: response.sortScores,
   total: response.total,
   loading: false,
   cacheKey: response.cacheKey,
@@ -48,10 +55,12 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
   readonly pageState$ = this.select(state => ({ pageSize: state.pageSize ?? 0, pageNum: state.pageNum ?? 0, pageCount: state.total }));
   readonly trackingInfo$ = this.select(state => state.trackingInfo);
 
+  readonly resultsWithCoverage$ = this.select<ResultWithCoverage[]>(state => state.results.map((result, idx) => ({ result, coverage: state.sortScores[idx] })));
+
   /* Updaters */
   readonly setLoading = this.updater((state, isLoading: boolean) => ({ ...state, loading: isLoading }));
   readonly setStateFromResponse = this.updater((state, queryResponse: QueryResponse) => resultStateFromQueryResponse(queryResponse));
-  readonly clear = this.updater((state) => ({ results: [], loading: false, total: 0, trackingInfo: state.trackingInfo, pageSize: 10, pageNum: 0, pageCount: 0, cacheKey: undefined }));
+  readonly clear = this.updater((state) => ({ results: [], sortScores: [], loading: false, total: 0, trackingInfo: state.trackingInfo, pageSize: 10, pageNum: 0, pageCount: 0, cacheKey: undefined }));
   readonly updatePaging = this.updater((state, pageEv: PageEvent) => ({ ...state, pageCount: pageEv.length, pageSize: pageEv.pageSize, pageNum: pageEv.pageIndex }));
   readonly setTrackingInfo = this.updater((state, trackingInfo: ParticipantTrackingInfo) => ({ ...state, trackingInfo }));
 
@@ -110,6 +119,7 @@ export class ResultsStoreService extends ComponentStore<ResultsState> {
   ) {
     super({
       results: [],
+      sortScores: [],
       total: 0,
       loading: false,
       pageSize: 10,

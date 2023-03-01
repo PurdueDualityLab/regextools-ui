@@ -11,6 +11,29 @@
         <app-forum-location-display *ngFor="let forum of entity.forumLocations" [location]="forum"></app-forum-location-display>
     </mat-nav-list>
     <mat-divider class="more-info__section-divider"></mat-divider>
+    <div>
+        <h3>Coverage Info</h3>
+        <div *ngIf="coveragePercents && coverage" class="more-info__coverage-container">
+            <div class="more-info__coverage-spinner-box">
+                <mat-progress-spinner mode="determinate" color="primary" [value]="coveragePercents.total"></mat-progress-spinner>
+                <h4>Total</h4>
+                <h5>{{ coverage.total | percent }}</h5>
+            </div>
+            <div class="more-info__coverage-spinner-box">
+                <mat-progress-spinner mode="determinate" color="accent" [value]="coveragePercents.positive"></mat-progress-spinner>
+                <h4>Positive</h4>
+                <h5>{{ coverage.positive | percent }}</h5>
+            </div>
+            <div class="more-info__coverage-spinner-box">
+                <mat-progress-spinner mode="determinate" color="accent" [value]="coveragePercents.negative"></mat-progress-spinner>
+                <h4>Negative</h4>
+                <h5>{{ coverage.negative | percent }}</h5>
+            </div>
+        </div>
+        <ng-template #coverageLoading>
+            <mat-progress-bar mode="query" color="primary"></mat-progress-bar>
+        </ng-template>
+    </div>
     <div class="more-info__expander"></div>
     <div mat-dialog-actions align="end">
         <button mat-raised-button color="primary" [mat-dialog-close]="">CLOSE</button>

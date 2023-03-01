@@ -8,6 +8,8 @@ import { QueryStoreService } from '../../query-store.service';
 import { RegexEntity, RemoteSourceLoc } from '../../regex-entity.model';
 import { ResultState } from '../../results-store.service';
 
+type CoverageLevel = 'low' | 'med' | 'high' | 'perf';
+
 @Component({
   selector: 'app-result-item',
   templateUrl: './result-item.component.html',
@@ -28,8 +30,15 @@ import { ResultState } from '../../results-store.service';
 export class ResultItemComponent implements OnInit {
 
   @Input() regex!: RegexEntity;
+  @Input() coverage = 0;
   @Input() mode: ResultState = 'same';
   isExpanded = false;
+  colorMap: Record<CoverageLevel, string> = {
+    low: '#b54b46',
+    med: '#FFCC00',
+    high: '#4BB543',
+    perf: '#4BB543'
+  }
 
   borderStyling = {
     'results-item__added-border': this.mode === 'added',
@@ -42,6 +51,22 @@ export class ResultItemComponent implements OnInit {
     private readonly queryStore: QueryStoreService,
     private readonly moreInfoDialogService: MoreInfoDialogService,
   ) { }
+
+  get coverageText(): CoverageLevel | null {
+    if (this.coverage == 0) {
+      return null;
+    }
+
+    if (this.coverage <= .45) {
+      return 'low';
+    } else if (this.coverage > .45 && this.coverage <= .7) {
+      return 'med';
+    } else if (this.coverage == 1) {
+      return 'perf';
+    } else {
+      return 'high';
+    }
+  }
 
   ngOnInit(): void {
   }

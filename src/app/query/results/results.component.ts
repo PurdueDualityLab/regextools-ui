@@ -15,7 +15,7 @@ export class ResultsComponent {
   @ViewChild('diffModeInfo', {static: true})
   diffModeInfo!: TemplateRef<any>;
 
-  results$ = this.resultsStore.results$;
+  results$ = this.resultsStore.resultsWithCoverage$;
   /*
   added$ = this.resultsStore.added$;
   removed$ = this.resultsStore.removed$;
